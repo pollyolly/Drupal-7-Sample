@@ -1,0 +1,48 @@
+  /* TEMPLATE STYLES */
+  /* Necessary for full page carousel*/
+html, body { height: 100%;background-color: #f4f7f6; font-size: 1rem !important;}
+.table td, .table th { font-size: .9rem !important; }
+table th { font-size: .9rem !important; }
+.table-striped th { border-bottom: 3px solid transparent !important; }
+.md-form label { font-weight: 300 !important; }
+  /*Logo*/
+.custom-logo{ border-radius: 50%;height: 100px;width: 100px;position: absolute; margin-top:5px;}
+.custom-logo2 { display:none;visibility: hidden; }
+  /* Navigation*/
+.navbar { background-color: #7b1113; height:50px;}
+.top-nav-collapse { background-color: #003d1d; }
+footer.page-footer { background-color: #262626; }
+
+@media only screen and (max-width: 1000px) {
+    .navbar {background-color: #7b1113;height:auto;}
+    .custom-logo {display:none;visibility: hidden; }
+    .custom-logo2 {border-radius: 50%;height: 100px;width: 100px;position: absolute; }
+}
+.scrolling-navbar {
+	-webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+	-moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+	transition: background .5s ease-in-out, padding .5s ease-in-out;
+  }
+ /* Carousel*/
+.carousel {height: 50%;}
+@media (max-width: 776px) { .carousel {height: 100%; } }
+.carousel-item,
+ /* .active {
+   height: 100%;
+} */
+.carousel-inner {height: 100%;}
+  /*Caption*/
+.flex-center {color: #fff;}
+.navbar .btn-group .dropdown-menu a:hover {color: #000 !important;}
+.navbar .btn-group .dropdown-menu a:active {color: #fff !important;}
+.card{border: 1px solid #efefef !important;}
+  /*Footer*/
+h5.title, li > a {color: #f0f0f0 !important;}
+h5.title {border-bottom: 2px solid #FDAD1E;}
+  /*Custom Button*/
+.btn-info, .modal-header {background-color: #0B6E4F !important;}
+.btn-info:hover, .btn-info:focus {background-color: #004421 !important;}
+h1.h1-responsive {padding-top: 15px;}
+#skip-link { display: none !important; visibility: hidden; }
+a { text-decoration: none !important; }
+/*Images min-widt*/

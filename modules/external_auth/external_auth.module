@@ -1,0 +1,80 @@
+<?php
+/*Returns Login URL 
+*/
+
+/*
+require_once('JWT/vendor/autoload.php');
+use Lcobucci\JWT\Parser;
+use Lcobucci\JWT\ValidationData;
+
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+
+function external_auth_login_credentials($MY_TOKEN){
+     if(function_exists("auto_login_url_create")){
+        if(external_auth_login_validate_token($MY_TOKEN)){
+             $username = external_auth_login_validate_token($MY_TOKEN);
+             $user = user_load_by_name($username);
+             $autoLoginUrl = $user->uid ? auto_login_url_create($user->uid) : FALSE;
+             return $autoLoginUrl;
+	}
+     } else { 
+        watchdog('auto_login_url_create', 'Auto Login Url @func was not detected.',array('@func' => 'Function'));
+     }
+}
+function external_auth_login_validate_token($MY_TOKEN){
+     $token = (new Parser())->parse((string) $MY_TOKEN);
+     $token->getHeaders();
+     $token->getClaims();
+     if(external_auth_login_validate_data($MY_TOKEN)){
+          return $token->getClaim('username');
+     } else {
+          return false;
+     }
+}
+function external_auth_login_validate_data($MY_TOKEN){
+     $token = (new Parser())->parse((string) $MY_TOKEN);
+     $data = new ValidationData();
+     $data->setIssuer(JWT_ISSUER);
+     $data->setId(JWT_JTICLAIM);
+     return $token->validate($data);
+} */
+
+function external_auth_login_credentials($MY_TOKEN){
+     if(function_exists("auto_login_url_create")){
+	$token = external_auth_decrypt($MY_TOKEN);
+        if(external_auth_login_validate_token($token)){
+             $data = external_auth_login_validate_token($token);
+             $user = user_load_by_name($data["username"]);
+             $autoLoginUrl = $user->uid ? auto_login_url_create($user->uid) : FALSE;
+             return $autoLoginUrl;
+        }
+     } else {
+        watchdog('auto_login_url_create', 'Auto Login Url @func was not detected.',array('@func' => 'Function'));
+     }
+}
+function external_auth_login_validate_token($MY_TOKEN){
+     $data = explode("|", $MY_TOKEN);
+     $value = array("username"=>$data[0], "issuer"=>$data[1], "time"=> $data[2]);
+     if(external_auth_login_validate_data($value)){
+	  return $value;
+     } else {
+          return false;
+     }
+}
+function external_auth_login_validate_data($value){
+     if(count($value) > 0){
+          $time = time() + (60 * 3);
+          return ($value["issuer"] == EXT_ISSUER AND $value["time"] < $time) ? true : false;
+     } 
+     return false;
+}
+function external_auth_decrypt($string) {
+    $output = false;
+    $encrypt_method = "AES-256-CBC";
+    $key = hash('sha256', EXT_KEY);
+    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+    $iv = substr(hash('sha256', EXT_IV), 0, 16);
+    $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+    return $output;
+}
+?>

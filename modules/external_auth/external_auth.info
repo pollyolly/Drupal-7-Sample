@@ -1,0 +1,7 @@
+name= External Auth
+description= External Authentication
+package= Other
+core = 7.x
+
+
+dependencies[] = auto_login_url

@@ -1,0 +1,14 @@
+/* TEMPLATE STYLES */
+/* Necessary for full page carousel*/
+html, body { height: 100%;background-color: #f4f7f6; font-size: 1rem !important;}
+.md-form label { font-weight: 300 !important; }
+#main-content-header{ display: none; visibility: hidden; }
+/*Custom Button*/
+.btn-info, .modal-header {background-color: #0B6E4F !important;}
+.btn-info:hover, .btn-info:focus {background-color: #004421 !important;}
+h1.h1-responsive {padding-top: 15px;}
+.messages.error{margin-bottom: 10px; z-index: 1051;}
+.modal { top:155px !important; }
+@media (min-width: 1000px) {
+    .modal { top: 70px !important; }
+}
